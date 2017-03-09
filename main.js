@@ -1,5 +1,7 @@
 var svg=document.getElementById("vimage");
 var button=document.getElementById("clear");
+var reqId = 0;
+var moveButton=document.getElementById("move");
 
 var change = function(e) {
     console.log("CIRCLE");
@@ -47,8 +49,30 @@ var clear = function(e){
     while(svg.lastChild){
 	svg.removeChild(svg.lastChild);
     };
-    x=-1;
+    x=-1;`
+};
+
+var move = function(e){
+    window.cancelAnimationFrame(reqId);
+    var moveCircles = function(){
+	var circles=document.getElementByTagName("circle");
+	clear();
+	for(var i = 0, max=circles.length;i<max;i++){
+	    var x=circles[i].getAttribute("cx");
+	    var y=circles[i].getAttribute("cy");
+	    if(x=480 || x=0){
+		circles[i].setAttribute("data-mx",toString(parseInt(circles[i].getAttribute("data-mx"),10)*-1));
+	    };
+	    if(y=480 || y=0){
+		circles[i].setAttribute("data-yx",toString(parseInt(circles[i].getAttribute("data-my"),10)*-1));
+	    };
+	    circles[i].setAttribute("cx",toString(parseInt(circles[i].getAttribute("data-mx"),10)+parseInt(circles[i].getAttribute("cx"))));
+	    circles[i].setAttribute("cy",toString(parseInt(circles[i].getAttribute("data-my"),10)+parseInt(circles[i].getAttribute("cy"))));	};
+	reqId = window.requestAnimationFrame(moveCircles);
+    };
+    moveCircles();
 };
 
 svg.addEventListener("click", addCircle);
 button.addEventListener("click", clear);
+moveButton.addEventListener("click", move);
