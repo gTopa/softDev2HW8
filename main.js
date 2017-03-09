@@ -25,7 +25,9 @@ var makeCircle = function(e){
     c.setAttribute("cx",e.offsetX);
     c.setAttribute("cy",e.offsetY);
     c.setAttribute("r", "20");
-    c.setAttribute("fill","red");
+    c.setAttribute("fill","red");  
+    c.setAttribute("data-mx","1");
+    c.setAttribute("data-my","1");
     c.addEventListener("click", change);
     return c;
 };
@@ -49,25 +51,24 @@ var clear = function(e){
     while(svg.lastChild){
 	svg.removeChild(svg.lastChild);
     };
-    x=-1;`
 };
 
 var move = function(e){
     window.cancelAnimationFrame(reqId);
     var moveCircles = function(){
-	var circles=document.getElementByTagName("circle");
-	clear();
+	var circles=document.getElementsByTagName("circle");
 	for(var i = 0, max=circles.length;i<max;i++){
 	    var x=circles[i].getAttribute("cx");
 	    var y=circles[i].getAttribute("cy");
-	    if(x=480 || x=0){
+	    if(x==480 || x==0){
 		circles[i].setAttribute("data-mx",toString(parseInt(circles[i].getAttribute("data-mx"),10)*-1));
 	    };
-	    if(y=480 || y=0){
+	    if(y==480 || y==0){
 		circles[i].setAttribute("data-yx",toString(parseInt(circles[i].getAttribute("data-my"),10)*-1));
 	    };
-	    circles[i].setAttribute("cx",toString(parseInt(circles[i].getAttribute("data-mx"),10)+parseInt(circles[i].getAttribute("cx"))));
-	    circles[i].setAttribute("cy",toString(parseInt(circles[i].getAttribute("data-my"),10)+parseInt(circles[i].getAttribute("cy"))));	};
+	    circles[i].setAttribute("cx",(parseInt(circles[i].getAttribute("data-mx"),10)+parseInt(circles[i].getAttribute("cx"))).toString());
+	    circles[i].setAttribute("cy",(parseInt(circles[i].getAttribute("data-my"),10)+parseInt(circles[i].getAttribute("cy"))).toString());	
+	};
 	reqId = window.requestAnimationFrame(moveCircles);
     };
     moveCircles();
