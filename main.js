@@ -38,7 +38,7 @@ var makeRandomCircle = function(){
     c.setAttribute("cx",Math.round(Math.random()*500));
     c.setAttribute("cy",Math.round(Math.random()*500));
     c.setAttribute("r", "20");
-    c.setAttribute("fill","yellow");
+    c.setAttribute("fill","red");
     c.addEventListener("click", change);
     return c;
 };
