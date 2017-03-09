@@ -5,7 +5,7 @@ var change = function(e) {
     console.log("CIRCLE");
     if(this.getAttribute("fill")=="green"){
 	svg.removeChild(this);
-	makeRandomCircle();
+	addRandomCircle();
     }
     else{
 	this.setAttribute("fill","green");
@@ -23,13 +23,13 @@ var makeCircle = function(e){
     c.setAttribute("cx",e.offsetX);
     c.setAttribute("cy",e.offsetY);
     c.setAttribute("r", "20");
-    c.setAttribute("fill","yellow");
+    c.setAttribute("fill","red");
     c.addEventListener("click", change);
     return c;
 };
 
-var addRandomCircle = function(e) {
-    document.getElementById("vimage").appendChild(makeRandomCircle());
+var addRandomCircle = function() {
+    svg.appendChild(makeRandomCircle());
     console.log("SVG");
 };
 
