@@ -43,6 +43,8 @@ var makeRandomCircle = function(){
     c.setAttribute("cy",Math.round(Math.random()*499));
     c.setAttribute("r", "20");
     c.setAttribute("fill","red");
+    c.setAttribute("data-mx","1");
+    c.setAttribute("data-my","1");
     c.addEventListener("click", change);
     return c;
 };
@@ -68,10 +70,25 @@ var move = function(e){
 	    if(y  == 480 ||  y == 0){
 		circles[i].setAttribute("data-my", (parseInt(circles[i].getAttribute("data-my"),10) *-1).toString());
 	    };
-	    var newx = parseInt(circles[i].getAttribute("data-mx"),10);
-	    console.log(newx);
+	    if(x == 250){
+		var newOne=makeRandomCircle();
+		newOne.setAttribute("cx","250");
+		newOne.setAttribute("cy",y);
+		newOne.setAttribute("data-mx",(parseInt(circles[i].getAttribute("data-mx"),10) *-1).toString());
+		newOne.setAttribute("data-my",(parseInt(circles[i].getAttribute("data-my"),10) *-1).toString());
+		newOne.setAttribute("r",(parseInt(circles[i].getAttribute("r"),10) * .5).toString());
+		circles[i].setAttribute("r",(parseInt(circles[i].getAttribute("r"),10) * .5).toString());
+		newOne.addEventListener("click", change);
+		svg.appendChild(newOne);
+	    };
+	};
+	circles=document.getElementsByTagName("circle");
+	for(var i = 0, max=circles.length;i<max;i++){
 	    circles[i].setAttribute("cx",(parseInt(circles[i].getAttribute("data-mx"),10)+parseInt(circles[i].getAttribute("cx"))).toString());
-	    circles[i].setAttribute("cy",(parseInt(circles[i].getAttribute("data-my"),10)+parseInt(circles[i].getAttribute("cy"))).toString());	
+	    circles[i].setAttribute("cy",(parseInt(circles[i].getAttribute("data-my"),10)+parseInt(circles[i].getAttribute("cy"))).toString());
+	    if(parseInt(circles[i].getAttribute("r"))<3){
+		svg.removeChild(circles[i]);
+	    };
 	};
 	reqId = window.requestAnimationFrame(moveCircles);
     };
