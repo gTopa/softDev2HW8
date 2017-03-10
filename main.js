@@ -39,8 +39,8 @@ var addRandomCircle = function() {
 
 var makeRandomCircle = function(){
     var c = document.createElementNS("http://www.w3.org/2000/svg","circle");
-    c.setAttribute("cx",Math.round(Math.random()*500));
-    c.setAttribute("cy",Math.round(Math.random()*500));
+    c.setAttribute("cx",Math.round(Math.random()*499));
+    c.setAttribute("cy",Math.round(Math.random()*499));
     c.setAttribute("r", "20");
     c.setAttribute("fill","red");
     c.addEventListener("click", change);
@@ -60,12 +60,16 @@ var move = function(e){
 	for(var i = 0, max=circles.length;i<max;i++){
 	    var x=circles[i].getAttribute("cx");
 	    var y=circles[i].getAttribute("cy");
-	    if(x==480 || x==0){
-		circles[i].setAttribute("data-mx",toString(parseInt(circles[i].getAttribute("data-mx"),10)*-1));
+	    var dx = parseInt(circles[i].getAttribute("data-mx"));
+	    var dy = parseInt(circles[i].getAttribute("data-my"));
+	    if(x  == 480 || x == 0){
+		circles[i].setAttribute("data-mx", (parseInt(circles[i].getAttribute("data-mx"),10) *-1).toString());
 	    };
-	    if(y==480 || y==0){
-		circles[i].setAttribute("data-yx",toString(parseInt(circles[i].getAttribute("data-my"),10)*-1));
+	    if(y  == 480 ||  y == 0){
+		circles[i].setAttribute("data-my", (parseInt(circles[i].getAttribute("data-my"),10) *-1).toString());
 	    };
+	    var newx = parseInt(circles[i].getAttribute("data-mx"),10);
+	    console.log(newx);
 	    circles[i].setAttribute("cx",(parseInt(circles[i].getAttribute("data-mx"),10)+parseInt(circles[i].getAttribute("cx"))).toString());
 	    circles[i].setAttribute("cy",(parseInt(circles[i].getAttribute("data-my"),10)+parseInt(circles[i].getAttribute("cy"))).toString());	
 	};
